@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# starts ftp server in current dir w/ username and pass of 'anonymous'
+# install the lib via pip w/ command `pip install pyftpdlib` before running
+python -m pyftpdlib
