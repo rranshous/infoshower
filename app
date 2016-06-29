@@ -14,7 +14,9 @@ get '/' do
   return 404 if !random_file_name
   file_name = random_file_name
   file_path = File.join(DATA_DIR, file_name)
+  puts "using file: #{file_name}"
   mime_string = MimeMagic.by_magic(File.open(file_path)).to_s
+  puts "mime type: #{mime_string}"
   if mime_string.start_with? 'image'
     """
     <html><head><meta http-equiv='refresh' content='30'>
