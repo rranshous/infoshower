@@ -32,10 +32,19 @@ get '/' do
     """
   elsif mime_string.start_with? 'video'
     """
-    <html><head><meta http-equiv='refresh' content='30'></head><body>
-     <video width='100%' height='100%' autoplay>
+    <html><head>
+    </head><body>
+     <video width='100%' height='100%' autoplay id='vid'>
       <source src='/#{file_name}'>
      </video>
+     <script type='text/javascript'>
+      var el = document.getElementById('vid');
+      console.log({ el: el });
+      document.getElementById('vid').addEventListener('ended',function() {
+       console.log('reloading page');
+       window.location.reload(true);
+      },false);
+    </script>
     </body></html>
     """
   else
