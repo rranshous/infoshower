@@ -2,7 +2,7 @@
 require 'sinatra'
 require 'mimemagic'
 
-DATA_DIR = './data'
+DATA_DIR = ENV['DATA_DIR'] || './data'
 
 def random_file_name
   file_path = Dir["#{DATA_DIR}/*"].sample
