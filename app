@@ -6,10 +6,12 @@ DATA_DIR = ENV['DATA_DIR'] || './data'
 
 def random_file_name
   file_path = Dir["#{DATA_DIR}/*"].sample
+  return nil if file_path.nil?
   File.basename file_path
 end
 
 get '/' do
+  return 404 if !random_file_name
   file_name = random_file_name
   mime_string = MimeMagic.by_extension(File.extname(file_name)).to_s
   if mime_string.start_with? 'image'
