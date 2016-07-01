@@ -1,0 +1,17 @@
+goal:
+
+image / video slideshow on rpi
+
+this project is the server which serves up the data
+can be run on the rpi or a central server
+
+can be used w/ docker image rranshous/file_receiver to manage files
+
+
+to setup pi:
+ - install raspian
+ - install chromium - http://raspberrypi.stackexchange.com/questions/44384/how-to-get-chromium-on-raspberry-3/44690
+ - setup rpi to boot to kiosk chromium - http://blogs.wcode.org/2013/09/howto-boot-your-raspberry-pi-into-a-fullscreen-browser-kiosk/
+
+# TODO
+consider using: https://github.com/adafruit/pi_video_looper

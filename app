@@ -61,6 +61,20 @@ get '/' do
   end
 end
 
-get '/:file_name' do |file_name|
+get '/random_file' do
+  return 404 if !random_file_name
+  file_name = random_file_name
+  file_path = File.join(DATA_DIR, file_name)
+  puts "using file: #{file_name}"
+  mime_string = MimeMagic.by_magic(File.open(file_path)).to_s
+  puts "mime type: #{mime_string}"
+  content_type mime_string
   send_file File.join(DATA_DIR, file_name)
+end
+
+get '/:file_name' do |file_name|
+  file_path = File.join(DATA_DIR, file_name)
+  mime_string = MimeMagic.by_magic(File.open(file_path)).to_s
+  content_type mime_string
+  send_file file_path
 end
