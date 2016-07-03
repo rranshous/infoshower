@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+set -e
+
+data_path=$1
+
+# get the image / video data
+# try and show with timeout
+
+echo "stopping existing fbi procs"
+killall fbi && true
+
+echo "showing black on tty 2"
+fbi -T 2 ./TransparentBlack.png
+
+background_pid=`pgrep fbi`
+echo "background pid: $background_pid"
+
+# show a black screen
+# chvt 1 -- change tty
+echo "moving to tty 2"
+chvt 2
+
+while true; do
+
+ # symlink to the file we want to operate against
+ echo "choosing content"
+ file_path=`find $data_path -type f | sort -R | tail -n 1`
+ echo "chose $file_path"
+ rm /tmp/content && true
+ echo "linking"
+ ln $file_path /tmp/content
+
+ # figure out the file's mime type and than open the viewer for it
+ type=`file -b --mime-type /tmp/content | cut -d'/' -f 1`
+ echo "file type: $type"
+ if [ "$type" = "image" ]; then
+  echo "showing image"
+  fbi -T 2 -a --noverbose /tmp/content &
+  sleep 10
+  echo "fbis:"
+  pgrep fbi
+  echo "stopping fbi, except $background_pid"
+  pgrep fbi | grep -v "$background_pid" | xargs kill -9
+ else
+  echo "playing video"
+  omxplayer -b /tmp/content
+ fi
+done
+
+ #export DISPLAY=:0
+ #timeout 10s startx
+
+# file --mime-type -b filename
