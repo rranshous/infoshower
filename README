@@ -13,5 +13,23 @@ to setup pi:
  - install chromium - http://raspberrypi.stackexchange.com/questions/44384/how-to-get-chromium-on-raspberry-3/44690
  - setup rpi to boot to kiosk chromium - http://blogs.wcode.org/2013/09/howto-boot-your-raspberry-pi-into-a-fullscreen-browser-kiosk/
 
+or to run shower natively:
+ - install raspian
+ - install `fbi` from apt-get
+ - clone infoshower in to `/home/pi/app/infoshower`
+ - put data to rotate in `/home/pi/infoshower-data`
+ - update `rc.local`:
+`
+  if [ -f /home/pi/app/infoshower/shower ] && ! [ -f /home/pi/disable_infoshower ]; then
+   echo "launching infoshower"
+   (sleep 10 && /home/pi/app/infoshower/shower /home/pi/infoshower-data/) &
+  fi
+`
+ - if you'd like to disable auto running on boot than `touch /home/pi/disable_infoshower`
+ - Pro Tip: use rsync to populate the `infoshower-data` dir
+
+
 # TODO
-consider using: https://github.com/adafruit/pi_video_looper
+consider using: https://github.com/adafruit/pi_video_looper -- evaluated, does not do images
+
+
