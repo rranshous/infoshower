@@ -15,7 +15,7 @@ else
   sudo sed -i 's/exit 0//g' /etc/rc.local
   echo "if [ -f /home/pi/app/infoshower/shower ] && ! [ -f /home/pi/disable_infoshower ]; then" | sudo tee -a /etc/rc.local
   echo 'echo "launching infoshower"' | sudo tee -a /etc/rc.local
-  echo "(sleep 10 && /home/pi/app/infoshower/shower /home/pi/infoshower-data/) &" | sudo tee -a /etc/rc.local
+  echo "(sleep 10 && cd /home/pi/app/infoshower && /home/pi/app/infoshower/shower /home/pi/infoshower-data/) &" | sudo tee -a /etc/rc.local
   echo "fi" | sudo tee -a /etc/rc.local
   echo "exit 0" | sudo tee -a /etc/rc.local
 fi

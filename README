@@ -22,7 +22,7 @@ or to run shower natively:
 `
   if [ -f /home/pi/app/infoshower/shower ] && ! [ -f /home/pi/disable_infoshower ]; then
    echo "launching infoshower"
-   (sleep 10 && /home/pi/app/infoshower/shower /home/pi/infoshower-data/) &
+   (sleep 10 && cd /home/pi/app/infoshower && /home/pi/app/infoshower/shower /home/pi/infoshower-data/) &
   fi
 `
  - if you'd like to disable auto running on boot than `touch /home/pi/disable_infoshower`
