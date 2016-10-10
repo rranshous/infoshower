@@ -15,7 +15,7 @@ echo "stopping existing fbi procs"
 (pgrep fbi | xargs kill -9) && true
 
 echo "showing black on tty 2"
-fbi -T 2 ./TransparentBlack.png
+fbi -T 2 /home/pi/app/infoshower/TransparentBlack.png
 
 background_pid=`pgrep fbi`
 echo "background pid: $background_pid"
