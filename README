@@ -29,6 +29,9 @@ or to run shower natively:
  - Pro Tip: use rsync to populate the `infoshower-data` dir
 
 
+# setup rsyncd in office
+docker run --restart=always -d --name=infoshower-rsync -v /home/pi/infoshower-data:/data -e RSYNC_PASSWORD=anonymous rranshous/rsyncd-rpi -avzh --delete  anonymous@infoshower.aws-dev.manheim.com::data/ ./
+
 # TODO
 consider using: https://github.com/adafruit/pi_video_looper -- evaluated, does not do images
 
