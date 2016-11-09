@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+#set -e # exit on errs
+set -x # debug
+
+# what image should we start on?
+start_at=$1
+
+# who are we?
+script=$(readlink -e -f "$0")
+
+tty=$(tty | cut -d'y' -f2)
+index=0
+
+getc() {
+  IFS= read -r -n1 -d '' "$@"
+}
+
+for f in $(ls | grep -v meta | egrep -i 'jpg|png')
+do
+
+  # check if we have a minimum start value
+  if [ -n "$start_at" ]
+  then
+    echo "we have starting value: $start_at"
+    if [ $start_at -gt "$index" ]
+    then
+      echo "skipping image: $index"
+      # increment our image count
+      index=$(($index + 1))
+      continue
+    fi
+  fi
+
+  # show the image
+  echo "starting image $f on $tty"
+  sudo fbi -T $tty "$f" &
+  fpid="$!"
+  echo "FPID: $fpid"
+
+  # get user input
+  echo "reading input"
+  getc input || echo "failure"
+  echo "read: $input"
+
+  # next image?
+  if [[ $input == "n" ]]
+  then
+    echo "killing open image"
+    sudo kill $fpid
+  fi
+
+  # back an image?
+  if [[ $input == "b" ]]
+  then
+    echo "going back"
+    exec slideshow $index
+    exit 0
+  fi
+
+  # quit ?
+  if [[ $input == "q" ]]
+  then
+    echo "exiting"
+    sudo kill $fpid
+    exit $index
+  fi
+
+  # increment our image count
+  index=$(($index + 1))
+done
+
+echo "done"
