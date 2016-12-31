@@ -6,7 +6,7 @@ echo "updating packages"
 sudo apt-get update
 
 echo "install needed packages"
-sudo apt-get install fbi omxplayer kbd
+sudo apt-get install fbi omxplayer kbd rsync
 
 if grep -q "infoshower" /etc/rc.local; then
   echo "rc.local already set up"
