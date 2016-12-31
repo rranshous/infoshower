@@ -22,12 +22,15 @@ or to run shower natively:
 `
   if [ -f /home/pi/app/infoshower/shower ] && ! [ -f /home/pi/disable_infoshower ]; then
    echo "launching infoshower"
-   (sleep 10 && /home/pi/app/infoshower/shower /home/pi/infoshower-data/) &
+   (sleep 10 && cd /home/pi/app/infoshower && /home/pi/app/infoshower/shower /home/pi/infoshower-data/) &
   fi
 `
  - if you'd like to disable auto running on boot than `touch /home/pi/disable_infoshower`
  - Pro Tip: use rsync to populate the `infoshower-data` dir
 
+
+# setup rsyncd in office
+docker run --restart=always -d --name=infoshower-rsync -v /home/pi/infoshower-data:/data -e RSYNC_PASSWORD=anonymous rranshous/rsyncd-rpi -avzh --delete  anonymous@infoshower.aws-dev.manheim.com::data/ ./
 
 # TODO
 consider using: https://github.com/adafruit/pi_video_looper -- evaluated, does not do images
