@@ -29,7 +29,7 @@ while true; do
 
  # symlink to the file we want to operate against
  echo "choosing content"
- file_path=`find $data_path -type f | sort -R | tail -n 1`
+ file_path=`find -L $data_path -type f | sort -R | tail -n 1`
  echo "chose $file_path"
  rm /tmp/content && true
  echo "linking"
