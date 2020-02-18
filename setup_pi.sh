@@ -24,7 +24,7 @@ echo "cloning infoshower project"
 rm -rf /home/pi/app/infoshower
 mkdir -p /home/pi/app
 cd /home/pi/app
-git clone http://github.ove.local/rranshous/infoshower.git
+git clone https://github.com/rranshous/infoshower.git
 
 echo "making data dir"
 mkdir -p /home/pi/infoshower-data
